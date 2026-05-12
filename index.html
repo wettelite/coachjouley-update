@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>COACH JOULEY · Die 100 € → 10.000 € Leiter Challenge</title>
+<meta name="description" content="Folge der Leiter. Vom 100 € Einsatz bis 10.000 € — Schritt für Schritt mit Coach Jouley auf Telegram." />
+
+<!-- Open Graph -->
+<meta property="og:title" content="COACH JOULEY · Leiter Challenge" />
+<meta property="og:description" content="100 € zu 10.000 €. Live auf Telegram. Bist du dabei?" />
+<meta property="og:type" content="website" />
+
+<!-- Fonts: Bebas Neue (display, aggressive) + Inter Tight (clean body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo+Black&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --okc-blue: #007ac1;
+    --okc-blue-bright: #2ea8ff;
+    --okc-orange: #ef7b1f;
+    --okc-orange-bright: #ff9933;
+    --bg-0: #04060d;
+    --bg-1: #0a1020;
+    --bg-2: #0e1830;
+    --line: rgba(46, 168, 255, 0.18);
+    --text: #e9eef7;
+    --text-dim: #8794ad;
+    --success: #1ed760;
+    --danger: #ff3b3b;
+    --gold: #ffd23d;
+    --shadow-lg: 0 30px 80px -20px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg-0);
+    color: var(--text);
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,122,193,.25), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(239,123,31,.18), transparent 70%),
+      var(--bg-0);
+    min-height: 100vh;
+  }
+
+  /* Lightning grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(46,168,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46,168,255,.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+
+  /* Noise grain */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: .04;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ============ TOP BAR ============ */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(4,6,13,.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 0;
+  }
+  .top-bar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+  }
+  .brand-mark {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--okc-blue) 0%, var(--okc-orange) 100%);
+    padding: 2px;
+    box-shadow: 0 0 24px rgba(46,168,255,.5);
+    flex-shrink: 0;
+  }
+  .brand-mark img {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 22%;
+    display: block;
+  }
+  .brand-text { display: flex; flex-direction: column; line-height: 1; gap: 2px;}
+  .brand-text strong { color: var(--text); font-weight: 400; }
+  .brand-text span {
+    font-size: 11px; letter-spacing: 3px;
+    color: var(--okc-orange-bright);
+  }
+  .top-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, var(--okc-blue) 0%, var(--okc-orange) 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all .2s;
+    box-shadow: 0 0 24px rgba(46,168,255,.35);
+  }
+  .top-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 32px rgba(46,168,255,.55), 0 0 36px rgba(239,123,31,.2);
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding: 60px 0 40px;
+    text-align: center;
+    position: relative;
+  }
+
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px;
+    background: rgba(239,123,31,.12);
+    border: 1px solid rgba(239,123,31,.35);
+    border-radius: 999px;
+    color: var(--okc-orange-bright);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .pill .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--okc-orange-bright);
+    box-shadow: 0 0 0 0 rgba(239,123,31,.7);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(239,123,31,.7); }
+    70% { box-shadow: 0 0 0 12px rgba(239,123,31,0); }
+    100% { box-shadow: 0 0 0 0 rgba(239,123,31,0); }
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 9vw, 120px);
+    line-height: .9;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(180deg, var(--okc-orange-bright) 0%, var(--okc-orange) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 24px rgba(239,123,31,.4));
+  }
+  .hero h1 .arrow {
+    display: inline-block;
+    margin: 0 .15em;
+    vertical-align: middle;
+    line-height: 1;
+  }
+  .hero h1 .arrow svg {
+    height: 0.55em;
+    width: auto;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 14px rgba(239,123,31,.45)) drop-shadow(0 0 10px rgba(46,168,255,.35));
+  }
+  .hero h1 .blue {
+    background: linear-gradient(180deg, var(--okc-blue-bright) 0%, var(--okc-blue) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 24px rgba(46,168,255,.4));
+  }
+
+  .hero p.lede {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--text-dim);
+    max-width: 620px;
+    margin: 0 auto 40px;
+    line-height: 1.5;
+  }
+  .hero p.lede strong { color: var(--text); }
+
+  /* ============ VIDEO ============ */
+  .video-wrap {
+    max-width: 880px;
+    margin: 0 auto 48px;
+    aspect-ratio: 16 / 9;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--line);
+    box-shadow:
+      0 0 0 1px rgba(46,168,255,.15),
+      0 30px 80px -20px rgba(0,0,0,.7),
+      0 0 80px rgba(0,122,193,.15);
+    background: linear-gradient(135deg, #0a1020 0%, #04060d 100%);
+  }
+  .video-poster {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 50% 22%;
+    z-index: 0;
+  }
+  .video-placeholder {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    cursor: pointer;
+    transition: all .3s;
+    z-index: 1;
+  }
+  .video-placeholder::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at center, rgba(4,6,13,.15) 0%, rgba(4,6,13,.55) 75%),
+      linear-gradient(180deg, transparent 30%, rgba(4,6,13,.55) 100%);
+    z-index: 1;
+  }
+  .video-placeholder .play {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--okc-blue) 0%, var(--okc-orange) 100%);
+    display: grid; place-items: center;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 60px rgba(46,168,255,.6);
+    transition: transform .3s;
+  }
+  .video-placeholder:hover .play { transform: scale(1.08); }
+  .video-placeholder .play::before {
+    content: '';
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 16px 0 16px 26px;
+    border-color: transparent transparent transparent white;
+    margin-left: 6px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.4));
+  }
+  .video-placeholder .play::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.2);
+    animation: ring 2s infinite;
+  }
+  @keyframes ring {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.4); opacity: 0; }
+  }
+  .video-label {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    z-index: 3;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    font-size: 14px;
+    color: var(--text);
+    background: rgba(0,0,0,.5);
+    padding: 6px 12px;
+    border-radius: 6px;
+    backdrop-filter: blur(8px);
+  }
+
+  /* ============ COUNTDOWN ============ */
+  .countdown-card {
+    max-width: 720px;
+    margin: 0 auto 64px;
+    background:
+      linear-gradient(135deg, rgba(0,122,193,.12) 0%, rgba(239,123,31,.12) 100%),
+      rgba(10,16,32,.9);
+    border: 1px solid rgba(46,168,255,.3);
+    border-radius: 20px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(0,122,193,.15);
+    text-align: center;
+  }
+  .countdown-card::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--okc-blue-bright), var(--okc-orange-bright), transparent);
+    animation: scan 3s linear infinite;
+  }
+  @keyframes scan {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(50%); }
+  }
+  .countdown-label {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 4px;
+    font-size: 14px;
+    color: var(--okc-orange-bright);
+    margin-bottom: 8px;
+  }
+  .countdown-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(22px, 5vw, 30px);
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+  }
+  .countdown-clock {
+    display: flex; justify-content: center; gap: 12px;
+    font-family: 'Archivo Black', sans-serif;
+  }
+  .clock-cell {
+    background: rgba(4,6,13,.7);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 20px;
+    min-width: 90px;
+    text-align: center;
+  }
+  .clock-cell .num {
+    font-size: 44px;
+    line-height: 1;
+    background: linear-gradient(180deg, #fff 0%, #cfd8e8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-variant-numeric: tabular-nums;
+  }
+  .clock-cell .lbl {
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+  .countdown-hint {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  @media (max-width: 540px) {
+    .countdown-card { padding: 22px 16px; }
+    .countdown-label { letter-spacing: 2.5px; font-size: 11px; }
+    .clock-cell { padding: 14px 12px; min-width: 78px; }
+    .clock-cell .num { font-size: 38px; }
+  }
+
+  /* ============ STATS STRIP ============ */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+  .stat {
+    text-align: center;
+    padding: 20px 12px;
+    background: rgba(10,16,32,.6);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+  .stat .v {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    letter-spacing: 1px;
+    line-height: 1;
+    background: linear-gradient(180deg, var(--okc-orange-bright), var(--okc-orange));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .stat .l {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  @media (max-width: 540px) {
+    .stats { grid-template-columns: 1fr; }
+  }
+
+  /* ============ SPOTS BAR ============ */
+  .spots-bar {
+    margin-bottom: 64px;
+    display: flex;
+    justify-content: center;
+  }
+  .spots-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 24px;
+    background: rgba(10,16,32,.7);
+    border: 1px solid rgba(239,123,31,.35);
+    border-radius: 999px;
+    box-shadow: 0 0 40px rgba(239,123,31,.12);
+  }
+  .spots-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--okc-orange-bright);
+    box-shadow: 0 0 0 0 rgba(239,123,31,.7);
+    animation: pulse 1.8s infinite;
+  }
+  .spots-text {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .spots-label {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 3px;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .spots-val {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    background: linear-gradient(135deg, var(--okc-orange-bright), #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 480px) {
+    .spots-inner { padding: 12px 18px; gap: 10px; }
+    .spots-label { font-size: 11px; letter-spacing: 2px; }
+    .spots-val { font-size: 16px; }
+  }
+
+  /* ============ THE LADDER ============ */
+  .section-head {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .section-head h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 64px);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .section-head p {
+    color: var(--text-dim);
+    max-width: 540px;
+    margin: 0 auto 20px;
+  }
+  .section-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--okc-blue) 0%, var(--okc-orange) 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 999px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2.5px;
+    font-size: 16px;
+    box-shadow: 0 0 32px rgba(46,168,255,.4);
+    transition: all .25s;
+  }
+  .section-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 48px rgba(46,168,255,.6), 0 0 60px rgba(239,123,31,.3);
+  }
+
+  .ladder {
+    position: relative;
+    max-width: 760px;
+    margin: 0 auto 80px;
+    padding-left: 60px;
+  }
+
+  /* central spine */
+  .ladder::before {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 30px;
+    bottom: 30px;
+    width: 3px;
+    background: linear-gradient(180deg,
+      var(--okc-blue) 0%,
+      var(--okc-blue-bright) 40%,
+      var(--okc-orange) 70%,
+      var(--okc-orange-bright) 100%);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(46,168,255,.4);
+  }
+
+  .rung {
+    position: relative;
+    margin-bottom: 18px;
+    background: rgba(10,16,32,.7);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    transition: all .25s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+  .rung:hover {
+    transform: translateX(6px);
+    border-color: rgba(46,168,255,.5);
+    box-shadow: 0 0 40px rgba(0,122,193,.2);
+    background: rgba(14,24,48,.9);
+  }
+
+  .rung .marker {
+    position: absolute;
+    left: -47px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--bg-1);
+    border: 3px solid var(--okc-blue);
+    display: grid; place-items: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    z-index: 2;
+    transition: all .25s;
+  }
+  .rung:hover .marker {
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 0 24px rgba(46,168,255,.7);
+  }
+
+  /* completed rungs */
+  .rung.done {
+    opacity: .55;
+  }
+  .rung.done .marker {
+    background: linear-gradient(135deg, var(--okc-blue), var(--okc-blue-bright));
+    border-color: var(--okc-blue-bright);
+    color: white;
+  }
+  .rung.done .marker::after {
+    content: '✓';
+    font-size: 18px;
+  }
+  .rung.done .marker .num { display: none; }
+
+  /* the active rung */
+  .rung.active {
+    background: linear-gradient(135deg, rgba(0,122,193,.15), rgba(239,123,31,.15)), rgba(14,24,48,.9);
+    border-color: var(--okc-orange);
+    box-shadow: 0 0 50px rgba(239,123,31,.25);
+  }
+  .rung.active .marker {
+    border-color: var(--okc-orange);
+    background: linear-gradient(135deg, var(--okc-orange), var(--okc-orange-bright));
+    color: white;
+    animation: glow 2s infinite;
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 12px rgba(239,123,31,.6); }
+    50% { box-shadow: 0 0 28px rgba(239,123,31,.9); }
+  }
+
+  /* future rungs are visually locked, with progressive intensity */
+  .rung.locked {
+    opacity: .65;
+  }
+  .rung.locked .marker { border-color: var(--text-dim); }
+  .rung.locked:nth-child(2)  { opacity: .60; }
+  .rung.locked:nth-child(3)  { opacity: .64; }
+  .rung.locked:nth-child(4)  { opacity: .68; }
+  .rung.locked:nth-child(5)  { opacity: .72; }
+  .rung.locked:nth-child(6)  { opacity: .76; }
+  .rung.locked:nth-child(7)  { opacity: .80; }
+  .rung.locked:nth-child(8)  { opacity: .84; }
+  .rung.locked:nth-child(9)  { opacity: .90; border-color: rgba(239,123,31,.20); }
+  .rung.locked:nth-child(10) {
+    opacity: .96;
+    border-color: rgba(239,123,31,.40);
+    background: linear-gradient(135deg, rgba(239,123,31,.06), rgba(0,122,193,.05)), rgba(14,24,48,.85);
+    box-shadow: 0 0 30px rgba(239,123,31,.14);
+  }
+  .rung.locked:nth-child(10) .marker { border-color: rgba(239,123,31,.55); }
+  .rung.locked:nth-child(10) .rung-amount {
+    background: linear-gradient(135deg, var(--gold), var(--okc-orange-bright));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .rung-body { flex: 1; min-width: 0; }
+  .rung-step {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 2px;
+  }
+  .rung.active .rung-step { color: var(--okc-orange-bright); }
+  .rung-amount {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    line-height: 1.1;
+  }
+  .rung.active .rung-amount {
+    background: linear-gradient(135deg, var(--okc-orange-bright), #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .rung-meta {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .rung-arrow {
+    color: var(--text-dim);
+    font-size: 18px;
+    flex-shrink: 0;
+    transition: all .25s;
+  }
+  .rung:hover .rung-arrow {
+    color: var(--okc-orange-bright);
+    transform: translateX(4px);
+  }
+  .rung.locked .rung-arrow::before { content: '🔒'; font-size: 14px; }
+  .rung.locked .rung-arrow > span { display: none; }
+  .rung.done .rung-arrow::before { content: ''; }
+
+  @media (max-width: 540px) {
+    .ladder { padding-left: 50px; }
+    .ladder::before { left: 18px; }
+    .rung .marker { left: -42px; width: 32px; height: 32px; font-size: 12px; }
+    .rung-amount { font-size: 18px; }
+    .rung { padding: 14px 16px; }
+  }
+
+  /* ============ HOW IT WORKS ============ */
+  .how {
+    margin-bottom: 80px;
+  }
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .how-card {
+    background: rgba(10,16,32,.6);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 24px;
+    position: relative;
+  }
+  .how-card .step-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 56px;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--okc-blue-bright), var(--okc-orange-bright));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity: .9;
+    margin-bottom: 12px;
+  }
+  .how-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+  }
+  .how-card p {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  @media (max-width: 800px) {
+    .how-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ============ FINAL CTA ============ */
+  .final-cta {
+    text-align: center;
+    padding: 60px 24px 80px;
+    margin-bottom: 40px;
+    background:
+      radial-gradient(ellipse at center, rgba(0,122,193,.18), transparent 60%),
+      linear-gradient(135deg, rgba(239,123,31,.08), rgba(0,122,193,.08));
+    border: 1px solid rgba(46,168,255,.2);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 68px);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+  .final-cta p {
+    color: var(--text-dim);
+    max-width: 480px;
+    margin: 0 auto 32px;
+  }
+
+  .big-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--okc-blue) 0%, var(--okc-orange) 100%);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 3px;
+    box-shadow: 0 0 60px rgba(46,168,255,.5), 0 0 80px rgba(239,123,31,.3);
+    transition: all .25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .big-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,.2), transparent 50%);
+  }
+  .big-cta:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 80px rgba(46,168,255,.7), 0 0 100px rgba(239,123,31,.5);
+  }
+  .big-cta svg { width: 28px; height: 28px; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 32px 0;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  footer .disclaimer {
+    max-width: 720px;
+    margin: 0 auto 12px;
+  }
+
+  /* ============ TOAST ============ */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120%);
+    background: rgba(10,16,32,.95);
+    border: 1px solid var(--okc-orange);
+    color: var(--text);
+    padding: 14px 22px;
+    border-radius: 12px;
+    font-size: 14px;
+    z-index: 200;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 40px rgba(0,0,0,.5);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1);
+    max-width: 90vw;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ============ ENTRY ANIMATIONS ============ */
+  .reveal { opacity: 0; transform: translateY(30px); animation: reveal .8s forwards; }
+  @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+  .d1 { animation-delay: .05s; }
+  .d2 { animation-delay: .15s; }
+  .d3 { animation-delay: .25s; }
+  .d4 { animation-delay: .35s; }
+  .d5 { animation-delay: .45s; }
+
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="container top-bar-inner">
+    <div class="brand">
+      <div class="brand-mark">
+        <img src="coach-jouley.jpg" alt="Coach Jouley" />
+      </div>
+      <div class="brand-text">
+        <strong>COACH JOULEY</strong>
+        <span>LEITER · CHALLENGE</span>
+      </div>
+    </div>
+    <a href="#join" class="top-cta" data-cta="top">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+      JOIN TELEGRAM
+    </a>
+  </div>
+</div>
+
+<main class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="pill reveal d1">
+      <span class="dot"></span>
+      LIVE · CHALLENGE LÄUFT
+    </div>
+    <h1 class="reveal d2">
+      <span class="accent">100 €</span>
+      <span class="arrow" aria-hidden="true">
+        <svg viewBox="0 0 60 48" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="climbGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ff9933"/>
+              <stop offset="100%" stop-color="#2ea8ff"/>
+            </linearGradient>
+          </defs>
+          <path d="M 4 42 L 18 42 L 18 28 L 32 28 L 32 14 L 46 14"
+                stroke="url(#climbGrad)" stroke-width="5"
+                stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+          <path d="M 42 7 L 54 14 L 42 21 Z" fill="url(#climbGrad)"/>
+        </svg>
+      </span>
+      <span class="blue">10.000 €</span>
+    </h1>
+    <p class="lede reveal d3">
+      Jeder Step ist ein <strong>Pick von Coach Jouley.</strong>
+      Du folgst nur. Bist du bereit für die Challenge?
+    </p>
+
+    <!-- VIDEO -->
+    <div class="video-wrap reveal d4" id="videoWrap">
+      <img src="coach-jouley.jpg" alt="Coach Jouley" class="video-poster" />
+      <div class="video-placeholder" id="videoPlaceholder">
+        <div class="play"></div>
+        <div class="video-label">▸ INTRO VIDEO</div>
+      </div>
+      <!-- Replace the placeholder above with an iframe like:
+           <iframe src="https://www.youtube.com/embed/YOUR_ID?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen
+                   style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+      -->
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="countdown-card reveal d5">
+    <div class="countdown-label">⚡ COUNTDOWN</div>
+    <div class="countdown-title">NÄCHSTER PICK IN</div>
+    <div class="countdown-clock">
+      <div class="clock-cell">
+        <div class="num" id="cdMin">15</div>
+        <div class="lbl">MIN</div>
+      </div>
+      <div class="clock-cell">
+        <div class="num" id="cdSec">00</div>
+        <div class="lbl">SEK</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPOTS -->
+  <section class="spots-bar">
+    <div class="spots-inner">
+      <div class="spots-dot"></div>
+      <div class="spots-text">
+        <span class="spots-label">SPOTS VERGEBEN</span>
+        <span class="spots-val" id="statSpots">87 / 100</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LADDER -->
+  <section id="ladder">
+    <div class="section-head">
+      <h2>DIE LEITER</h2>
+      <p>Jeder Step ist ein Pick von Coach Jouley.</p>
+      <a href="#" class="section-cta" data-cta="ladder">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+        JOIN TELEGRAM
+      </a>
+    </div>
+
+    <div class="ladder" id="ladderEl">
+      <!-- rungs injected by JS -->
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <div class="section-head">
+      <h2>SO LÄUFT'S</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="step-num">01</div>
+        <h3>JOIN TELEGRAM</h3>
+        <p>Tritt dem Coach Jouley Telegram-Kanal bei. Dort kommen alle Picks rein — Echtzeit, ohne Verzögerung.</p>
+      </div>
+      <div class="how-card">
+        <div class="step-num">02</div>
+        <h3>FOLGE DER LEITER</h3>
+        <p>Du startest mit 100 €. Jeder Step bringt dich höher. Kein Picks-raten — Jouley liefert die Analyse, du entscheidest.</p>
+      </div>
+      <div class="how-card">
+        <div class="step-num">03</div>
+        <h3>CASH OUT BEI 10.000 €</h3>
+        <p>10 Steps · Ziel 10.000 €. Du entscheidest, wann du aussteigst — oder ob du bis zum Ende fährst.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" id="join">
+    <h2>BEREIT FÜR DEN <span style="color:var(--okc-orange-bright)">CLIMB</span>?</h2>
+    <p>Telegram ist kostenlos. Die Picks sind kostenlos. Verpass keinen Step.</p>
+    <a href="#" class="big-cta" id="finalCTA" data-cta="final">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+      JOIN TELEGRAM
+    </a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="disclaimer">
+      18+ · Spielen kann süchtig machen. Hilfe und Beratung unter <strong>www.check-dein-spiel.de</strong> · Diese Seite ist kein Wettanbieter. Coach Jouley ist eine unabhängige Tipper-Persönlichkeit ohne Affiliate-Bindung zu einem Bookmaker.
+    </div>
+    <div>© <span id="yr"></span> Coach Jouley · Alle Rechte vorbehalten</div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ============ CONFIG ============
+  // CHANGE THIS TO YOUR TELEGRAM LINK
+  const TELEGRAM_URL = "https://t.me/your_channel_here";
+
+  // The ladder steps (100 → 10.000)
+  // Math: each step ~1.58x to hit 10k in 10 steps (100 * 1.585^10 ≈ 10100)
+  const RUNGS = [
+    { step: 1,  amount: "100 €",     pick: "Startkapital · Pick #1" },
+    { step: 2,  amount: "160 €",     pick: "NBA · Pick #2" },
+    { step: 3,  amount: "260 €",     pick: "NBA · Pick #3" },
+    { step: 4,  amount: "420 €",     pick: "NBA · Pick #4" },
+    { step: 5,  amount: "680 €",     pick: "NBA · Pick #5" },
+    { step: 6,  amount: "1.100 €",   pick: "NBA · Pick #6" },
+    { step: 7,  amount: "1.800 €",   pick: "NBA · Pick #7" },
+    { step: 8,  amount: "2.900 €",   pick: "NBA · Pick #8" },
+    { step: 9,  amount: "4.700 €",   pick: "NBA · Pick #9" },
+    { step: 10, amount: "10.000 €",  pick: "FINALER PICK · CASHOUT" },
+  ];
+
+  // ============ STATE ============
+  // Active rung index — persisted across reloads
+  const ACTIVE_KEY = 'cj_active_rung';
+  const TIMER_KEY  = 'cj_timer_end';   // unix ms
+  const TIMER_DURATION = 15 * 60 * 1000; // 15 minutes
+
+  let activeRung = parseInt(localStorage.getItem(ACTIVE_KEY) || '0', 10);
+  if (isNaN(activeRung) || activeRung < 0) activeRung = 0;
+  if (activeRung >= RUNGS.length) activeRung = RUNGS.length - 1;
+
+  // ============ LADDER RENDER ============
+  const ladderEl = document.getElementById('ladderEl');
+
+  function renderLadder() {
+    ladderEl.innerHTML = '';
+    RUNGS.forEach((r, i) => {
+      let cls = 'rung';
+      if (i < activeRung) cls += ' done';
+      else if (i === activeRung) cls += ' active';
+      else cls += ' locked';
+
+      const html = `
+        <a href="${TELEGRAM_URL}" target="_blank" rel="noopener" class="${cls}" data-step="${i}">
+          <div class="marker"><span class="num">${r.step}</span></div>
+          <div class="rung-body">
+            <div class="rung-step">STEP ${String(r.step).padStart(2,'0')} ${i === activeRung ? '· LIVE JETZT' : ''}</div>
+            <div class="rung-amount">${r.amount}</div>
+            <div class="rung-meta">${r.pick}</div>
+          </div>
+          <div class="rung-arrow"><span>→</span></div>
+        </a>
+      `;
+      ladderEl.insertAdjacentHTML('beforeend', html);
+    });
+
+    // attach handlers
+    ladderEl.querySelectorAll('.rung').forEach(el => {
+      el.addEventListener('click', onRungClick);
+    });
+  }
+
+  function onRungClick(e) {
+    const idx = parseInt(this.dataset.step, 10);
+
+    // reset timer
+    resetTimer();
+
+    // advance active step if user is climbing
+    if (idx >= activeRung && activeRung < RUNGS.length - 1) {
+      activeRung = idx + 1 > RUNGS.length - 1 ? RUNGS.length - 1 : idx;
+      localStorage.setItem(ACTIVE_KEY, String(activeRung));
+      // small delay to let them see the click feedback
+      setTimeout(renderLadder, 200);
+    }
+
+    showToast(`⚡ STEP ${idx + 1} · Timer wurde resetet`);
+    // navigation to Telegram proceeds normally via the href
+  }
+
+  // ============ COUNTDOWN ============
+  const cdMin = document.getElementById('cdMin');
+  const cdSec = document.getElementById('cdSec');
+
+  function getEndTime() {
+    let end = parseInt(localStorage.getItem(TIMER_KEY) || '0', 10);
+    if (!end || end < Date.now()) {
+      end = Date.now() + TIMER_DURATION;
+      localStorage.setItem(TIMER_KEY, String(end));
+    }
+    return end;
+  }
+
+  function resetTimer() {
+    const end = Date.now() + TIMER_DURATION;
+    localStorage.setItem(TIMER_KEY, String(end));
+    tickCountdown();
+  }
+
+  function tickCountdown() {
+    const end = getEndTime();
+    let diff = end - Date.now();
+    if (diff < 0) {
+      // auto-reset
+      resetTimer();
+      diff = TIMER_DURATION;
+    }
+    const totalSec = Math.floor(diff / 1000);
+    const m = Math.floor(totalSec / 60);
+    const s = totalSec % 60;
+    cdMin.textContent = String(m).padStart(2, '0');
+    cdSec.textContent = String(s).padStart(2, '0');
+  }
+
+  setInterval(tickCountdown, 1000);
+
+  // ============ TOAST ============
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+
+  // ============ VIDEO PLACEHOLDER ============
+  document.getElementById('videoPlaceholder').addEventListener('click', () => {
+    showToast('🎬 Hier wird dein Intro-Video eingebettet');
+  });
+
+  // ============ TOP / FINAL CTA LINKS ============
+  document.querySelectorAll('[data-cta]').forEach(el => {
+    el.href = TELEGRAM_URL;
+    el.target = '_blank';
+    el.rel = 'noopener';
+  });
+
+  // ============ FAKE-ish "spots taken" ticker (light social proof) ============
+  // gentle drift between 84-94 to give a "live" feel, capped at 99/100 so it never hits sold out
+  let spots = 87;
+  const spotsEl = document.getElementById('statSpots');
+  setInterval(() => {
+    if (Math.random() < 0.4 && spots < 96) spots += 1;
+    else if (Math.random() < 0.15 && spots > 84) spots -= 1;
+    spotsEl.textContent = `${spots} / 100`;
+  }, 8000);
+
+  // ============ INIT ============
+  renderLadder();
+  tickCountdown();
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
