@@ -903,7 +903,11 @@
     <div class="countdown-title">NÄCHSTER PICK IN</div>
     <div class="countdown-clock">
       <div class="clock-cell">
-        <div class="num" id="cdMin">15</div>
+        <div class="num" id="cdHr">00</div>
+        <div class="lbl">STD</div>
+      </div>
+      <div class="clock-cell">
+        <div class="num" id="cdMin">00</div>
         <div class="lbl">MIN</div>
       </div>
       <div class="clock-cell">
@@ -911,6 +915,7 @@
         <div class="lbl">SEK</div>
       </div>
     </div>
+    <div class="countdown-hint">Nächster Pick um <strong>12:00 Uhr</strong> (deutsche Zeit)</div>
   </section>
 
   <!-- SPOTS -->
@@ -996,7 +1001,7 @@
   // The ladder steps (100 → 10.000)
   // Math: each step ~1.58x to hit 10k in 10 steps (100 * 1.585^10 ≈ 10100)
   const RUNGS = [
-    { step: 1,  amount: "100 €",     pick: "Startkapital · Pick #1" },
+    { step: 1,  amount: "175 €",     pick: "Startkapital · 100 € → 175 €" },
     { step: 2,  amount: "160 €",     pick: "NBA · Pick #2" },
     { step: 3,  amount: "260 €",     pick: "NBA · Pick #3" },
     { step: 4,  amount: "420 €",     pick: "NBA · Pick #4" },
@@ -1009,13 +1014,13 @@
   ];
 
   // ============ STATE ============
-  // Active rung index — persisted across reloads
-  const ACTIVE_KEY = 'cj_active_rung';
-  const TIMER_KEY  = 'cj_timer_end';   // unix ms
-  const TIMER_DURATION = 15 * 60 * 1000; // 15 minutes
+  // Active rung index — bump key to invalidate stale localStorage from older builds.
+  // Floor enforces the deployed-source value (set by Coach Jouley as challenge progresses).
+  const ACTIVE_KEY   = 'cj_active_rung_v2';
+  const ACTIVE_FLOOR = 1; // step 2 (index 1) is currently live; step 1 is done
 
-  let activeRung = parseInt(localStorage.getItem(ACTIVE_KEY) || '0', 10);
-  if (isNaN(activeRung) || activeRung < 0) activeRung = 0;
+  let activeRung = parseInt(localStorage.getItem(ACTIVE_KEY) || String(ACTIVE_FLOOR), 10);
+  if (isNaN(activeRung) || activeRung < ACTIVE_FLOOR) activeRung = ACTIVE_FLOOR;
   if (activeRung >= RUNGS.length) activeRung = RUNGS.length - 1;
 
   // ============ LADDER RENDER ============
@@ -1051,52 +1056,41 @@
 
   function onRungClick(e) {
     const idx = parseInt(this.dataset.step, 10);
-
-    // reset timer
-    resetTimer();
-
-    // advance active step if user is climbing
-    if (idx >= activeRung && activeRung < RUNGS.length - 1) {
-      activeRung = idx + 1 > RUNGS.length - 1 ? RUNGS.length - 1 : idx;
-      localStorage.setItem(ACTIVE_KEY, String(activeRung));
-      // small delay to let them see the click feedback
-      setTimeout(renderLadder, 200);
-    }
-
-    showToast(`⚡ STEP ${idx + 1} · Timer wurde resetet`);
+    showToast(`⚡ STEP ${String(idx + 1).padStart(2,'0')} · Telegram öffnet sich`);
     // navigation to Telegram proceeds normally via the href
   }
 
-  // ============ COUNTDOWN ============
+  // ============ COUNTDOWN — counts down to next 12:00 Europe/Berlin ============
+  const cdHr  = document.getElementById('cdHr');
   const cdMin = document.getElementById('cdMin');
   const cdSec = document.getElementById('cdSec');
 
-  function getEndTime() {
-    let end = parseInt(localStorage.getItem(TIMER_KEY) || '0', 10);
-    if (!end || end < Date.now()) {
-      end = Date.now() + TIMER_DURATION;
-      localStorage.setItem(TIMER_KEY, String(end));
-    }
-    return end;
-  }
-
-  function resetTimer() {
-    const end = Date.now() + TIMER_DURATION;
-    localStorage.setItem(TIMER_KEY, String(end));
-    tickCountdown();
+  // Returns the unix-ms timestamp of the next 12:00:00 in Europe/Berlin.
+  // Handles DST automatically (CET in winter, CEST in summer).
+  function nextNoonBerlinMs() {
+    const now = Date.now();
+    const parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Europe/Berlin',
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      hour12: false
+    }).formatToParts(new Date(now));
+    const v = (t) => parts.find(p => p.type === t).value;
+    const Y = +v('year'), M = +v('month'), D = +v('day');
+    // Berlin's offset right now, derived from "Berlin wall-clock as if UTC" minus actual UTC
+    const offsetMs = Date.UTC(Y, M - 1, D, +v('hour'), +v('minute'), +v('second')) - now;
+    let target = Date.UTC(Y, M - 1, D, 12) - offsetMs;
+    if (target <= now) target += 24 * 60 * 60 * 1000; // tomorrow's noon
+    return target;
   }
 
   function tickCountdown() {
-    const end = getEndTime();
-    let diff = end - Date.now();
-    if (diff < 0) {
-      // auto-reset
-      resetTimer();
-      diff = TIMER_DURATION;
-    }
+    const diff = Math.max(0, nextNoonBerlinMs() - Date.now());
     const totalSec = Math.floor(diff / 1000);
-    const m = Math.floor(totalSec / 60);
+    const h = Math.floor(totalSec / 3600);
+    const m = Math.floor((totalSec % 3600) / 60);
     const s = totalSec % 60;
+    cdHr.textContent  = String(h).padStart(2, '0');
     cdMin.textContent = String(m).padStart(2, '0');
     cdSec.textContent = String(s).padStart(2, '0');
   }
