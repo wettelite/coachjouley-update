@@ -578,18 +578,47 @@
 
   /* completed rungs */
   .rung.done {
-    opacity: .55;
+    opacity: .88;
+    border-color: rgba(30,215,96,.25);
   }
   .rung.done .marker {
-    background: linear-gradient(135deg, var(--okc-blue), var(--okc-blue-bright));
-    border-color: var(--okc-blue-bright);
-    color: white;
+    background: linear-gradient(135deg, var(--success), #6df297);
+    border-color: var(--success);
+    color: #042e15;
   }
   .rung.done .marker::after {
     content: '✓';
     font-size: 18px;
+    font-weight: 900;
   }
   .rung.done .marker .num { display: none; }
+  /* Win badge in the right slot */
+  .rung-gain {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 14px;
+    background: rgba(30,215,96,.12);
+    border: 1px solid rgba(30,215,96,.5);
+    border-radius: 12px;
+    color: var(--success);
+    flex-shrink: 0;
+    text-align: center;
+    line-height: 1;
+    box-shadow: 0 0 20px rgba(30,215,96,.15);
+  }
+  .rung-gain .gain-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+  }
+  .rung-gain .gain-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    margin-top: 4px;
+    opacity: .9;
+  }
 
   /* the active rung */
   .rung.active {
@@ -607,6 +636,9 @@
     0%, 100% { box-shadow: 0 0 12px rgba(239,123,31,.6); }
     50% { box-shadow: 0 0 28px rgba(239,123,31,.9); }
   }
+
+  /* CTA centered below the ladder */
+  .ladder-cta { text-align: center; margin: -40px 0 80px; }
 
   /* future rungs are visually locked, with progressive intensity */
   .rung.locked {
@@ -1003,7 +1035,7 @@
     </h1>
     <p class="lede reveal d3">
       Jeder Step ist ein <strong>Pick von Coach Jouley.</strong>
-      Du folgst nur. Bist du bereit für die Challenge?
+      Auf jeder Stufe entscheidest du. Bist du bereit?
     </p>
 
     <!-- VIDEO -->
@@ -1106,14 +1138,17 @@
     <div class="section-head">
       <h2>DIE LEITER</h2>
       <p>Jeder Step ist ein Pick von Coach Jouley.</p>
-      <a href="#" class="section-cta" data-cta="ladder">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
-        JOIN TELEGRAM
-      </a>
     </div>
 
     <div class="ladder" id="ladderEl">
       <!-- rungs injected by JS -->
+    </div>
+
+    <div class="ladder-cta">
+      <a href="#" class="section-cta" data-cta="ladder">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+        JOIN TELEGRAM
+      </a>
     </div>
   </section>
 
@@ -1126,17 +1161,17 @@
       <div class="how-card">
         <div class="step-num">01</div>
         <h3>JOIN TELEGRAM</h3>
-        <p>Tritt dem Coach Jouley Telegram-Kanal bei. Dort kommen alle Picks rein — Echtzeit, ohne Verzögerung.</p>
+        <p>Tritt dem Coach Jouley Telegram-Kanal bei. Kostenlos, kein Abo, kein Mindesteinsatz.</p>
       </div>
       <div class="how-card">
         <div class="step-num">02</div>
-        <h3>FOLGE DER LEITER</h3>
-        <p>Du startest mit 100 €. Jeder Step bringt dich höher. Kein Picks-raten — Jouley liefert die Analyse, du entscheidest.</p>
+        <h3>PICK BEKOMMEN</h3>
+        <p>Jeden Tag um <strong>12:00 Uhr</strong> (deutsche Zeit) postet Jouley den nächsten Pick. Live, ohne Verzögerung.</p>
       </div>
       <div class="how-card">
         <div class="step-num">03</div>
-        <h3>CASH OUT BEI 10.000 €</h3>
-        <p>10 Steps · Ziel 10.000 €. Du entscheidest, wann du aussteigst — oder ob du bis zum Ende fährst.</p>
+        <h3>SETZEN ODER PASSEN</h3>
+        <p>Du entscheidest jede Stufe selbst: <strong>Cash out</strong> und Profit sichern, oder <strong>weiter ballern</strong>.</p>
       </div>
     </div>
   </section>
@@ -1173,7 +1208,7 @@
   // The ladder steps (100 → 10.000)
   // Math: each step ~1.58x to hit 10k in 10 steps (100 * 1.585^10 ≈ 10100)
   const RUNGS = [
-    { step: 1,  amount: "175 €",     pick: "Startkapital · 100 € → 175 €" },
+    { step: 1,  amount: "175 €",     pick: "Startkapital · 100 € → 175 €", gain: "+75 €" },
     { step: 2,  amount: "160 €",     pick: "NBA · Pick #2" },
     { step: 3,  amount: "260 €",     pick: "NBA · Pick #3" },
     { step: 4,  amount: "420 €",     pick: "NBA · Pick #4" },
@@ -1206,6 +1241,10 @@
       else if (i === activeRung) cls += ' active';
       else cls += ' locked';
 
+      const rightSlot = (i < activeRung && r.gain)
+        ? `<div class="rung-gain"><span class="gain-num">${r.gain}</span><span class="gain-label">GEWONNEN</span></div>`
+        : `<div class="rung-arrow"><span>→</span></div>`;
+
       const html = `
         <a href="${TELEGRAM_URL}" target="_blank" rel="noopener" class="${cls}" data-step="${i}">
           <div class="marker"><span class="num">${r.step}</span></div>
@@ -1214,7 +1253,7 @@
             <div class="rung-amount">${r.amount}</div>
             <div class="rung-meta">${r.pick}</div>
           </div>
-          <div class="rung-arrow"><span>→</span></div>
+          ${rightSlot}
         </a>
       `;
       ladderEl.insertAdjacentHTML('beforeend', html);
