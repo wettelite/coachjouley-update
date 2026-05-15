@@ -683,6 +683,133 @@
     .rung { padding: 14px 16px; }
   }
 
+  /* ============ HOW-LADDER (explainer: what is a Leiter?) ============ */
+  .how-ladder { margin: 0 0 80px; }
+  .how-ladder .section-head { margin-bottom: 36px; }
+
+  .ladder-mini {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 auto 48px;
+    max-width: 760px;
+  }
+  .ladder-mini-step {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    padding: 12px 18px;
+    background: rgba(10,16,32,.7);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .ladder-mini-step--start {
+    border-color: rgba(46,168,255,.4);
+    color: var(--okc-blue-bright);
+    box-shadow: 0 0 18px rgba(46,168,255,.15);
+  }
+  .ladder-mini-step--final {
+    background: linear-gradient(135deg, rgba(255,210,61,.10), rgba(239,123,31,.10)), rgba(14,24,48,.85);
+    border-color: rgba(255,210,61,.45);
+    color: var(--gold);
+    box-shadow: 0 0 30px rgba(255,210,61,.18);
+  }
+  .ladder-mini-arrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  .paths {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .path {
+    position: relative;
+    padding: 32px 28px;
+    background: rgba(10,16,32,.6);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    text-align: center;
+    overflow: hidden;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+  }
+  .path::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    opacity: .85;
+  }
+  .path:hover { transform: translateY(-3px); }
+  .path-icon {
+    width: 64px; height: 64px;
+    margin: 0 auto 18px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    border: 1px solid;
+  }
+  .path-icon svg { width: 30px; height: 30px; }
+  .path h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .path-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .path-body {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .path--cashout::before  { background: linear-gradient(90deg, transparent, var(--success), transparent); }
+  .path--cashout .path-icon {
+    background: rgba(30,215,96,.10);
+    border-color: rgba(30,215,96,.45);
+    color: var(--success);
+  }
+  .path--cashout .path-tag { color: var(--success); }
+  .path--cashout:hover {
+    border-color: rgba(30,215,96,.4);
+    box-shadow: 0 0 40px rgba(30,215,96,.15);
+  }
+
+  .path--continue::before { background: linear-gradient(90deg, transparent, var(--okc-orange-bright), transparent); }
+  .path--continue .path-icon {
+    background: rgba(239,123,31,.10);
+    border-color: rgba(239,123,31,.45);
+    color: var(--okc-orange-bright);
+  }
+  .path--continue .path-tag { color: var(--okc-orange-bright); }
+  .path--continue:hover {
+    border-color: rgba(239,123,31,.4);
+    box-shadow: 0 0 40px rgba(239,123,31,.18);
+  }
+
+  @media (max-width: 740px) {
+    .paths { grid-template-columns: 1fr; }
+    .ladder-mini-step { font-size: 16px; padding: 10px 14px; }
+    .ladder-mini { gap: 8px; }
+    .path { padding: 28px 22px; }
+  }
+
   /* ============ HOW IT WORKS ============ */
   .how {
     margin-bottom: 80px;
@@ -925,6 +1052,51 @@
       <div class="spots-text">
         <span class="spots-label">SPOTS VERGEBEN</span>
         <span class="spots-val" id="statSpots">87 / 100</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WIE FUNKTIONIERT EINE LEITER? (explainer) -->
+  <section class="how-ladder">
+    <div class="section-head">
+      <h2>WIE FUNKTIONIERT EINE LEITER?</h2>
+      <p>Jeder gewonnene Step erhöht deinen Einsatz. Auf jeder Stufe entscheidest du selbst — Profit sichern oder weiter ballern.</p>
+    </div>
+
+    <div class="ladder-mini" aria-label="Beispiel der Stufenprogression">
+      <span class="ladder-mini-step ladder-mini-step--start">100 €</span>
+      <span class="ladder-mini-arrow">→</span>
+      <span class="ladder-mini-step">160 €</span>
+      <span class="ladder-mini-arrow">→</span>
+      <span class="ladder-mini-step">260 €</span>
+      <span class="ladder-mini-arrow">→</span>
+      <span class="ladder-mini-step">···</span>
+      <span class="ladder-mini-arrow">→</span>
+      <span class="ladder-mini-step ladder-mini-step--final">10.000 €</span>
+    </div>
+
+    <div class="paths">
+      <div class="path path--cashout">
+        <div class="path-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3v12"/>
+            <path d="M7 11l5 4 5-4"/>
+            <rect x="3" y="18" width="18" height="3" rx="1.5"/>
+          </svg>
+        </div>
+        <h3>CASH OUT</h3>
+        <div class="path-tag">Profit sichern</div>
+        <p class="path-body">Auf jeder Stufe kannst du raus. Was du bis dahin gewonnen hast, gehört dir — keiner zwingt dich höher.</p>
+      </div>
+      <div class="path path--continue">
+        <div class="path-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/>
+          </svg>
+        </div>
+        <h3>WEITER BALLERN</h3>
+        <div class="path-tag">Volle Stake</div>
+        <p class="path-body">Lass den Gewinn arbeiten und nimm den nächsten Pick. Höheres Risiko, näher an die 10.000 €.</p>
       </div>
     </div>
   </section>
